@@ -1,44 +1,41 @@
-#include <iostream>
-#include <vector>
-
+#include<iostream>
+#include<string>
 using namespace std;
 
-vector<int> findIndices(int *ptr, int key, int size){
-    vector<int> indices;
-
-    for (int i = 0; i < size; i++)
-    {
-        if (key == ptr[i])
+int search(string txt,string pat)
+{
+    int n = txt.length(), m = pat.length();
+    for(int i=0;i<=n-m;i++)
+    {   int j;
+        for ( j = 0; j < m; j++)
         {
-            indices.push_back(i);
-        }
+            if(txt[i+j]!=pat[j])
+            {
+                break;
+            }
+        }    
+        if(j==m)
+        {
+            return i;
+        }   
     }
-    return indices;
-
+    return -1;
 }
+int main()
+{
+    string txt;
+    string pattern;
+    cout<<"Enter your text string: "<<endl;
+    getline(cin,txt);
+    cout<<"Enter the pattern to search in the string: ";
+    getline(cin,pattern);
 
-int main(){
-    int n;
-    cout << "Enter size of array: ";
-    cin >> n;
-    
-    cout << "Enter elements of array: ";
-    int *arr = new int[n];
-    for (int i = 0; i < n; i++)
-    {
-        cin >> arr[i];
-    }
-    
-    int key;
-    cout << "Enter key to search: ";
-    cin >> key;
+    int index = search(txt, pattern);
 
-    vector<int>indices = findIndices(arr, key, n);
-    for (int i : indices)
-    {
-        cout << i << " ";
-    }
-    
+    if (index != -1)
+        cout << "First occurrence at index: " << index << endl;
+    else
+        cout << "Pattern not found!" << endl;
+
     return 0;
-
 }
